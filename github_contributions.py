@@ -389,15 +389,26 @@ def main():
 
     print(file=sys.stderr)
 
-    # Markdown table to stdout
+    # Markdown table to stdout (columns padded for alignment)
+    rows = [
+        ("Metric", "Count"),
+        ("Pull requests opened", str(prs_opened)),
+        ("Commits made", str(commits)),
+        ("Pull requests reviewed", str(prs_reviewed)),
+        ("Comments received on own PRs", str(comments_received)),
+        ("Comments made on others' PRs", str(comments_made)),
+    ]
+    col0_w = max(len(r[0]) for r in rows)
+    col1_w = max(len(r[1]) for r in rows)
+
+    def md_row(a, b):
+        return f"| {a:<{col0_w}} | {b:>{col1_w}} |"
+
     print(f"## GitHub Contribution Summary — {username} ({start} to {end})\n")
-    print("| Metric | Count |")
-    print("|---|---|")
-    print(f"| Pull requests opened | {prs_opened} |")
-    print(f"| Commits made | {commits} |")
-    print(f"| Pull requests reviewed | {prs_reviewed} |")
-    print(f"| Comments received on own PRs | {comments_received} |")
-    print(f"| Comments made on others' PRs | {comments_made} |")
+    print(md_row(*rows[0]))
+    print(f"| {'-' * col0_w} | {'-' * col1_w} |")
+    for row in rows[1:]:
+        print(md_row(*row))
 
 
 if __name__ == "__main__":
