@@ -347,8 +347,8 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=__doc__,
     )
-    parser.add_argument("start", help="Start date (yyyy-mm-dd, inclusive)")
-    parser.add_argument("end", help="End date (yyyy-mm-dd, inclusive)")
+    parser.add_argument("start (yyyy-mm-dd)", help="Start date (yyyy-mm-dd, inclusive)")
+    parser.add_argument("end (yyyy-mm-dd)", help="End date (yyyy-mm-dd, inclusive)")
     args = parser.parse_args()
 
     for label, val in [("start", args.start), ("end", args.end)]:
